@@ -5,6 +5,7 @@
 	<!-- set globar properties for this build -->
   <property name="lib.dir" value="lib" />
 	<property name="src" location="src"/>
+	<property name="src.test" location="tst"/>
 	<property name="build" location="build"/>
 	<property name="dist" location="dist"/>
 
@@ -49,5 +50,19 @@
       </classpath>
     </java>
 	</target>
+
+  <target name="test">
+    <junit printsummary="yes" haltonfailure="yes">
+      <classpath>
+        <path refid="lib.path.id"/>
+      </classpath>
+      <formatter type="plain"/>
+      <batchtest>
+        <fileset dir="${src.test}">
+          <include name="**/*Test*.java"/>
+        </fileset>
+      </batchtest>
+    </junit>
+  </target>
 
 </project>
