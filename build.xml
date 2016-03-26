@@ -7,6 +7,8 @@
 	<property name="src" location="src"/>
 	<property name="src.test" location="tst"/>
 	<property name="build" location="build"/>
+  <property name="build.core" location="build/core"/>
+  <property name="build.test" location="build/test"/>
 	<property name="dist" location="dist"/>
 
   <path id="lib.path.id">
@@ -18,11 +20,23 @@
 		<tstamp/>
 		<!-- Create the build directory structure used by compile -->
 		<mkdir dir="${build}"/>
+		<mkdir dir="${build.core}"/>
+		<mkdir dir="${build.test}"/>
 	</target>
 
 	<target name="compile" depends="init, resolve-deps" description="compile the source" >
 		<!-- Compile the java code from ${src} int ${build} -->
-		<javac srcdir="${src}" destdir="${build}" includeantruntime="false" classpathref="lib.path.id"/>
+		<javac srcdir="${src}" destdir="${build.core}" includeantruntime="false" classpathref="lib.path.id"/>
+	</target>
+
+	<target name="compile-test" depends="compile" description="compile the test code" >
+		<!-- Compile the java code from ${src} int ${build} -->
+    <javac srcdir="${src.test}" destdir="${build.test}" includeantruntime="false">
+      <classpath>
+        <pathelement location="${build.core}"/>
+        <path refid="lib.path.id"/>
+      </classpath>
+    </javac>
 	</target>
 
   <target name="resolve-deps" description="--> retrieve dependencies with ivy">
@@ -35,7 +49,7 @@
 		<mkdir dir="${dist}/lib"/>
 
 		<!-- Put everythin in ${build} into the jar file -->
-		<jar jarfile="${dist}/lib/Gifter-${DSTAMP}.jar" basedir="${build}"/>
+		<jar jarfile="${dist}/lib/Gifter-${DSTAMP}.jar" basedir="${build.core}"/>
 	</target>
 
 	<target name="clean" description="clean up">
@@ -46,17 +60,19 @@
 	<target name="run" depends="compile" description="run main">
     <java classname="com.cooldoger.gifter.Main" fork="yes">
       <classpath>
-        <pathelement path="${build}"/>
+        <pathelement path="${build.core}"/>
       </classpath>
     </java>
 	</target>
 
-  <target name="test">
+  <target name="test" depends="compile-test">
     <junit printsummary="yes" haltonfailure="yes">
       <classpath>
+        <pathelement path="${build.core}"/>
+        <pathelement path="${build.test}"/>
         <path refid="lib.path.id"/>
       </classpath>
-      <formatter type="plain"/>
+      <formatter type="plain" usefile="false" />
       <batchtest>
         <fileset dir="${src.test}">
           <include name="**/*Test*.java"/>
