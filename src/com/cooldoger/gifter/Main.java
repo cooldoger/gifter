@@ -10,6 +10,8 @@ public class Main {
         System.out.println("Hello JJJJJ");
         Gifter gifterApp = new Gifter();
         Path inputPath = FileSystems.getDefault().getPath("tst/res", "example.txt");
-        gifterApp.loadData(inputPath);
+        int num = gifterApp.loadData(inputPath);
+        gifterApp.shuffleList();
+        gifterApp.printResult();
     }
 }
