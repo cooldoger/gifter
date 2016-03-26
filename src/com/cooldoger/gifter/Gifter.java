@@ -28,17 +28,26 @@ public class Gifter {
 
     public void shuffleList() {
         Collections.shuffle(userList);
+        int n = userList.size();
+        for (int i = 0; i < n; i++) {
+            int recUserIdx = i + 1;
+            if (recUserIdx == n) {
+                recUserIdx = 0;
+            }
+            Person curUser = userList.get(i);
+            Person recUser = userList.get(recUserIdx);
+            curUser.setRecipient(recUser);
+            recUser.setGiver(curUser);
+        }
     }
 
     public void printResult() {
-        int n = userList.size();
-        for (int i = 0; i < n; i++) {
-            int nextUser = i + 1;
-            if (nextUser == n) {
-                nextUser = 0;
-            }
-            System.out.println(userList.get(i).getName() + " - " +
-                    userList.get(nextUser).getName());
-        }
+        for (Person user : userList) {
+            System.out.println(user.getName() + " - " +
+                               user.getGiver().getName()); }
+    }
+
+    public List<Person> getResult() {
+        return this.userList;
     }
 }
