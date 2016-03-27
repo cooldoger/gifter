@@ -63,6 +63,8 @@
       <classpath>
         <pathelement path="${build.core}"/>
       </classpath>
+      <arg value="tst/res/10Lines.txt"/>
+      <arg value="-nonFamilyGifter"/>
     </java>
 	</target>
 

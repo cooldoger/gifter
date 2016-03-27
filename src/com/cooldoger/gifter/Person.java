@@ -11,7 +11,6 @@ public class Person {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
-
     }
 
     public String getFirstName() {

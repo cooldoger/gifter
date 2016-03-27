@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.lang.IllegalArgumentException;
 
 public class Gifter {
-    private List<Person> userList;
+    protected List<Person> userList;
 
     public Gifter() {
         userList = new ArrayList<>();
