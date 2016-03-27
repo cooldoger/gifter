@@ -23,6 +23,7 @@ public class NonFamilyGifter extends Gifter {
         Map<String, Family> familyHash = new HashMap<>();
         maxFamilySize = 0;
         for (Person p : this.userList) {
+            // Assume the participants share the same last name are family.
             String lastName = p.getLastName();
             Family f = familyHash.get(lastName);
             if (f == null) {

@@ -6,6 +6,7 @@ public class Person {
     private final String email;
     private Person recipient;
     private Person giver;
+    private Family family;
 
     public Person(final String firstName, final String lastName, final String email) {
         this.firstName = firstName;
@@ -43,5 +44,13 @@ public class Person {
 
     public void setGiver(Person giver) {
         this.giver = giver;
+    }
+
+    public void setFamily(Family family) {
+        this.family = family;
+    }
+
+    public Family getFamily() {
+        return this.family;
     }
 }

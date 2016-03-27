@@ -18,6 +18,7 @@ public class Family {
 
     public void addMember(Person p) {
         this.members.add(p);
+        p.setFamily(this);
     }
 
     public List<Person> getMembers() {

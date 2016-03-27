@@ -9,7 +9,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 public class GifterTest {
-    private Gifter app;
+    protected Gifter app;
 
     @Before
     public void SetupGifterApp() {
@@ -82,7 +82,7 @@ public class GifterTest {
         Path inputPath = FileSystems.getDefault().getPath("tst/res", "example.txt");
         int num = app.loadData(inputPath);
         assertEquals(num, 3);
-        shuffleTest(app, 100000, 0.01);
+        shuffleTest(app, 100000, 0.02);
     }
 
     @Test
