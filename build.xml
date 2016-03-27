@@ -22,6 +22,7 @@
 		<mkdir dir="${build}"/>
 		<mkdir dir="${build.core}"/>
 		<mkdir dir="${build.test}"/>
+    <mkdir dir="${lib.dir}"/>
 	</target>
 
 	<target name="compile" depends="init" description="compile the source" >
