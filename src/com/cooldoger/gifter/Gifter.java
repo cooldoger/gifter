@@ -6,6 +6,7 @@ import java.nio.file.Files;
 import java.nio.charset.StandardCharsets;
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.lang.IllegalArgumentException;
 
 public class Gifter {
     private List<Person> userList;
@@ -23,7 +24,11 @@ public class Gifter {
             Person p = new Person(userData[0], userData[1], userData[2]);
             userList.add(p);
         }
-        return userList.size();
+        int num = userList.size();
+        if (num <= 1) {
+            throw new IllegalArgumentException("At least 2 users. Provided: " + num);
+        }
+        return num;
     }
 
     public List<Person> shuffleList() {

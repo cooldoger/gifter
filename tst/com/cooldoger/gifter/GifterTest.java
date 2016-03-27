@@ -3,6 +3,7 @@ package com.cooldoger.gifter;
 import java.util.*;
 import java.nio.file.*;
 import org.junit.Test;
+import java.lang.IllegalArgumentException;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -22,22 +23,32 @@ public class GifterTest {
         int num = app.loadData(inputPath);
     }
 
-    @Test
-    public void testShuffle() throws Exception {
+    @Test(expected=IllegalArgumentException.class)
+    public void testLoadDataEmpty() throws Exception {
         Gifter app = new Gifter();
-        Path inputPath = FileSystems.getDefault().getPath("tst/res", "example.txt");
+        Path inputPath = FileSystems.getDefault().getPath("tst/res", "empty.txt");
         int num = app.loadData(inputPath);
-        assertEquals(num, 3);
+    }
+
+    @Test(expected=IllegalArgumentException.class)
+    public void testLoadDataOneLine() throws Exception {
+        Gifter app = new Gifter();
+        Path inputPath = FileSystems.getDefault().getPath("tst/res", "oneLine.txt");
+        int num = app.loadData(inputPath);
+    }
+
+    private void shuffleTest(Gifter app, int runTimes, double epsilon) {
+        List<Person> userList = app.getUserList();
+        int num = userList.size();
+
         int result[][] = new int[num][num];
         Map<String, Integer> mapping = new HashMap<>();
-        List<Person> userList = app.getUserList();
         int idx = 0;
         for (Person p : userList) {
             mapping.put(p.getName(), idx++);
         }
 
-        int runNum = 100000;
-        for (int i = 0; i < runNum; i++) {
+        for (int i = 0; i < runTimes; i++) {
             userList = app.shuffleList();
             for (Person cur : userList) {
                 int curIdx = mapping.get(cur.getName());
@@ -46,19 +57,46 @@ public class GifterTest {
             }
         }
 
-        int avgHit = runNum / (num - 1);
-        double epsilon = avgHit * 0.01;
+        int avgHit = runTimes / (num - 1);
+        double epsilonVal = avgHit * epsilon;
 
         for (int i = 0; i < num; i++) {
             for (int j = 0; j < num; j++) {
                 if (i == j) {
                     assertEquals(result[i][j], 0);
                 } else {
-                    assertTrue("result : " + result[i][j] + " !~= " + avgHit + " ~ " + epsilon,
-                            Math.abs(result[i][j] - avgHit) < epsilon);
+                    assertTrue("result : " + result[i][j] + " !~= " + avgHit +
+                            " ~ " + epsilonVal,
+                            Math.abs(result[i][j] - avgHit) < epsilonVal);
                 }
             }
         }
-        //assertEquals(num, 4);
+    }
+
+    @Test
+    public void testShuffleExample() throws Exception {
+        Gifter app = new Gifter();
+        Path inputPath = FileSystems.getDefault().getPath("tst/res", "example.txt");
+        int num = app.loadData(inputPath);
+        assertEquals(num, 3);
+        shuffleTest(app, 100000, 0.01);
+    }
+
+    @Test
+    public void testShuffleExample10() throws Exception {
+        Gifter app = new Gifter();
+        Path inputPath = FileSystems.getDefault().getPath("tst/res", "10Lines.txt");
+        int num = app.loadData(inputPath);
+        assertEquals(num, 10);
+        shuffleTest(app, 100000, 0.05);
+    }
+
+    @Test
+    public void testShuffleExample100() throws Exception {
+        Gifter app = new Gifter();
+        Path inputPath = FileSystems.getDefault().getPath("tst/res", "100Lines.txt");
+        int num = app.loadData(inputPath);
+        assertEquals(num, 100);
+        shuffleTest(app, 100000, 0.15);
     }
 }
