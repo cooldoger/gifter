@@ -36,7 +36,7 @@ public class GifterTest {
             mapping.put(p.getName(), idx++);
         }
 
-        int runNum = 10000;
+        int runNum = 100000;
         for (int i = 0; i < runNum; i++) {
             userList = app.shuffleList();
             for (Person cur : userList) {
@@ -54,7 +54,8 @@ public class GifterTest {
                 if (i == j) {
                     assertEquals(result[i][j], 0);
                 } else {
-                    assertTrue(Math.abs(result[i][j] - avgHit) < epsilon);
+                    assertTrue("result : " + result[i][j] + " !~= " + avgHit + " ~ " + epsilon,
+                            Math.abs(result[i][j] - avgHit) < epsilon);
                 }
             }
         }

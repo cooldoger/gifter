@@ -32,7 +32,7 @@
 
 	<target name="compile-test" depends="compile" description="compile the test code" >
 		<!-- Compile the java code from ${src} int ${build} -->
-    <javac srcdir="${src.test}" destdir="${build.test}" includeantruntime="false">
+    <javac srcdir="${src.test}" destdir="${build.test}" includeantruntime="false" debug="on">
       <classpath>
         <pathelement location="${build.core}"/>
         <path refid="lib.path.id"/>
