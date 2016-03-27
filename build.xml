@@ -24,7 +24,7 @@
 		<mkdir dir="${build.test}"/>
 	</target>
 
-	<target name="compile" depends="init, resolve-deps" description="compile the source" >
+	<target name="compile" depends="init" description="compile the source" >
 		<!-- Compile the java code from ${src} int ${build} -->
 		<javac srcdir="${src}" destdir="${build.core}" includeantruntime="false" classpathref="lib.path.id"/>
 	</target>
