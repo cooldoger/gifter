@@ -53,4 +53,11 @@ public class Person {
     public Family getFamily() {
         return this.family;
     }
+
+    public void sendRecipientMail() {
+        // TODO: Add real email module
+        System.out.println("mailto: " + this.email);
+        System.out.println("Title: Your gift recipient is " + this.recipient);
+        return void;
+    }
 }
