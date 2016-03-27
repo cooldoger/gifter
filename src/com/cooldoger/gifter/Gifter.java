@@ -26,7 +26,7 @@ public class Gifter {
         return userList.size();
     }
 
-    public void shuffleList() {
+    public List<Person> shuffleList() {
         Collections.shuffle(userList);
         int n = userList.size();
         for (int i = 0; i < n; i++) {
@@ -39,6 +39,7 @@ public class Gifter {
             curUser.setRecipient(recUser);
             recUser.setGiver(curUser);
         }
+        return this.userList;
     }
 
     public void printResult() {
@@ -47,7 +48,7 @@ public class Gifter {
                                user.getGiver().getName()); }
     }
 
-    public List<Person> getResult() {
+    public List<Person> getUserList() {
         return this.userList;
     }
 }
