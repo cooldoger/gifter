@@ -3,14 +3,21 @@ package com.cooldoger.gifter;
 import java.util.*;
 import java.nio.file.*;
 import org.junit.Test;
+import org.junit.Before;
 import java.lang.IllegalArgumentException;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 public class GifterTest {
+    private Gifter app;
+
+    @Before
+    public void SetupGifterApp() {
+        this.app = new Gifter();
+    }
+
     @Test
     public void testLoadDataSuccess() throws Exception {
-        Gifter app = new Gifter();
         Path inputPath = FileSystems.getDefault().getPath("tst/res", "example.txt");
         int num = app.loadData(inputPath);
         assertEquals(num, 3);
@@ -18,21 +25,18 @@ public class GifterTest {
 
     @Test(expected=NoSuchFileException.class)
     public void testLoadDataFailed() throws Exception {
-        Gifter app = new Gifter();
         Path inputPath = FileSystems.getDefault().getPath("tst/res", "missing.txt");
         int num = app.loadData(inputPath);
     }
 
     @Test(expected=IllegalArgumentException.class)
     public void testLoadDataEmpty() throws Exception {
-        Gifter app = new Gifter();
         Path inputPath = FileSystems.getDefault().getPath("tst/res", "empty.txt");
         int num = app.loadData(inputPath);
     }
 
     @Test(expected=IllegalArgumentException.class)
     public void testLoadDataOneLine() throws Exception {
-        Gifter app = new Gifter();
         Path inputPath = FileSystems.getDefault().getPath("tst/res", "oneLine.txt");
         int num = app.loadData(inputPath);
     }
@@ -75,7 +79,6 @@ public class GifterTest {
 
     @Test
     public void testShuffleExample() throws Exception {
-        Gifter app = new Gifter();
         Path inputPath = FileSystems.getDefault().getPath("tst/res", "example.txt");
         int num = app.loadData(inputPath);
         assertEquals(num, 3);
@@ -84,7 +87,6 @@ public class GifterTest {
 
     @Test
     public void testShuffleExample10() throws Exception {
-        Gifter app = new Gifter();
         Path inputPath = FileSystems.getDefault().getPath("tst/res", "10Lines.txt");
         int num = app.loadData(inputPath);
         assertEquals(num, 10);
@@ -93,7 +95,6 @@ public class GifterTest {
 
     @Test
     public void testShuffleExample100() throws Exception {
-        Gifter app = new Gifter();
         Path inputPath = FileSystems.getDefault().getPath("tst/res", "100Lines.txt");
         int num = app.loadData(inputPath);
         assertEquals(num, 100);

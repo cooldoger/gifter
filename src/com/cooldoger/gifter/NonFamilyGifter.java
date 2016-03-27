@@ -58,4 +58,8 @@ public class NonFamilyGifter extends Gifter {
         }
         return this.userList;
     }
+
+    public List<Family> getFamilyList() {
+        return this.familyList;
+    }
 }
