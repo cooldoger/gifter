@@ -28,9 +28,9 @@ public class NonFamilyGifter extends Gifter {
             if (f == null) {
                 f = new Family(lastName);
                 familyHash.put(lastName, f);
+                this.familyList.add(f);
             }
             f.addMember(p);
-            this.familyList.add(f);
             maxFamilySize = Math.max(maxFamilySize, f.size());
         }
         if (maxFamilySize > num / 2) {
