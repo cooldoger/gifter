@@ -2,6 +2,9 @@ package com.cooldoger.gifter;
 
 import java.util.*;
 
+/**
+ * Family class which contains family members and metadata.
+ */
 public class Family {
     private final String lastName;
     private List<Person> members;

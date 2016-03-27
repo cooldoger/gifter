@@ -8,6 +8,14 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.lang.IllegalArgumentException;
 
+/**
+ * Gifter application to shuffle the participants but avoid the gifter from the
+ * same family.
+ *
+ * It group the participants into families. And shuffle the family list, then
+ * shuffle the participants inside of each family. Then the gifter receiver
+ * index is: (currentUserIdx + maxFamilySize) % numUser
+ */
 public class NonFamilyGifter extends Gifter {
     protected List<Family> familyList;
     private int maxFamilySize;
@@ -35,7 +43,8 @@ public class NonFamilyGifter extends Gifter {
             maxFamilySize = Math.max(maxFamilySize, f.size());
         }
         if (maxFamilySize > num / 2) {
-            throw new IllegalArgumentException("More than half of the participants are from the same family.");
+            throw new IllegalArgumentException(
+                    "More than half of the participants are from the same family.");
         }
         return num;
     }

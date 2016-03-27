@@ -8,6 +8,13 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.lang.IllegalArgumentException;
 
+/**
+ * Gifter application to shuffle the participants.
+ *
+ * The algorithm is shuffling the users and having the next user as secret gift
+ * receiver. Have the user list as a cycle list, if next user is beyong the
+ * user list, go back to the first one.
+ */
 public class Gifter {
     protected List<Person> userList;
 

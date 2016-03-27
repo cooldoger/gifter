@@ -1,5 +1,8 @@
 package com.cooldoger.gifter;
 
+/**
+ * Person class for storing participant information.
+ */
 public class Person {
     private final String firstName;
     private final String lastName;
